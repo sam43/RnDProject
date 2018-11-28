@@ -26,4 +26,16 @@ class RecyclerViewAdapter(val data: Array<String>) : RecyclerView.Adapter<Recycl
     override fun onBindViewHolder(holder: RecyclerViewAdapter.ViewHolder, position: Int) {
         holder.tv.text = data[position]
     }
+
+    fun remove(position: Int) {
+        if (data.isNotEmpty()) {
+            remove(position)
+            //remove(applicantList?.get(position))
+            //notifyItemRemoved(position)
+            //notifyItemRangeChanged(position, applicantList?.size!!)
+        } else {
+            //context.toast("No Applicant left here!")
+        }
+    }
+
 }

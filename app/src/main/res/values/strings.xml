@@ -6,6 +6,20 @@
 	
 	<!-- Days -->
 	<string-array name="days_names">
+		<item>Mondaysdfghhhsfgthfhjdghj</item>
+		<item>Tuesdayfdgjfhjdfjjgfhj</item>
+		<item>Wednesdayhfjgjkfkfjkf</item>
+		<item>Thursdayfjgjkfkjkfgjfk</item>
+		<item>Fridayjkfjkfjkjkfjkfk</item>
+		<item>Saturdafkfjkjkjkjfhkjy</item>
+		<item>Sunday</item>
+		<item>Monday</item>
+		<item>Tuesday</item>
+		<item>Wednesday</item>
+		<item>Thursday</item>
+		<item>Friday</item>
+		<item>Saturday</item>
+		<item>Sunday</item>
 		<item>Monday</item>
 		<item>Tuesday</item>
 		<item>Wednesday</item>

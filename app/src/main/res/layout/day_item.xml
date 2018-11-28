@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			  android:layout_width="match_parent"
 			  android:layout_height="wrap_content"
+		android:layout_margin="5dp"
+		android:background="#94bababa"
 			  android:padding="5dp">
 	<TextView
 			android:id="@+id/planet_name"
@@ -9,7 +11,7 @@
 			android:layout_height="wrap_content"
 			android:padding="40dp"
 			android:textSize="20sp"
+			android:text="@string/app_name"
 			android:layout_gravity="center_horizontal"
-			android:background="@android:color/holo_red_light"
-			android:textColor="#FFFFFF"/>
+			android:textColor="#282828" />
 </LinearLayout>
