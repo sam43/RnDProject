@@ -1,20 +1,32 @@
 package com.looser43.rndproject
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.day_item.view.*
+import kotlinx.android.synthetic.main.cart_list_item.view.*
 
-class RecyclerViewAdapter(val data: Array<String>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class RecyclerViewAdapter(val data: List<String>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+
+    /*var call: Callbacks? = null*/
+    init {
+        //call = context as Callbacks
+    }
+
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val tv = v.planet_name
+        val tv: TextView = v.planet_name
+        val viewForeground: RelativeLayout = v.view_foreground
+        val viewBackground: RelativeLayout = v.view_background
+        val viewBackground1: RelativeLayout = v.view_background1
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context)
-            .inflate(R.layout.day_item, parent, false)
+            .inflate(R.layout.cart_list_item, parent, false)
 
         return ViewHolder(v)
     }
@@ -25,16 +37,12 @@ class RecyclerViewAdapter(val data: Array<String>) : RecyclerView.Adapter<Recycl
 
     override fun onBindViewHolder(holder: RecyclerViewAdapter.ViewHolder, position: Int) {
         holder.tv.text = data[position]
-    }
 
-    fun remove(position: Int) {
-        if (data.isNotEmpty()) {
-            remove(position)
-            //remove(applicantList?.get(position))
-            //notifyItemRemoved(position)
-            //notifyItemRangeChanged(position, applicantList?.size!!)
-        } else {
-            //context.toast("No Applicant left here!")
+        holder.viewBackground1.setOnClickListener {
+            Log.d("swipeClick", "clicked")
+        }
+        holder.viewBackground.setOnClickListener {
+            Log.d("swipeClick", "clicked")
         }
     }
 
