@@ -1,27 +1,27 @@
 package com.looser43.rndproject
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.daimajia.swipe.SwipeLayout
+import com.daimajia.swipe.adapters.RecyclerSwipeAdapter
 import kotlinx.android.synthetic.main.cart_list_item.view.*
 
-class RecyclerViewAdapter(val data: List<String>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
-
-    /*var call: Callbacks? = null*/
-    init {
-        //call = context as Callbacks
+class RecyclerViewAdapter(
+    val data: List<String>,
+    val context: Context?
+) : RecyclerSwipeAdapter<RecyclerViewAdapter.ViewHolder>() {
+    override fun getSwipeLayoutResourceId(position: Int): Int {
+        return R.id.swipe
     }
-
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         val tv: TextView = v.planet_name
-        val viewForeground: RelativeLayout = v.view_foreground
-        val viewBackground: RelativeLayout = v.view_background
-        val viewBackground1: RelativeLayout = v.view_background1
+        val swipeLayout: SwipeLayout? = v.swipe
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewAdapter.ViewHolder {
@@ -37,13 +37,41 @@ class RecyclerViewAdapter(val data: List<String>) : RecyclerView.Adapter<Recycle
 
     override fun onBindViewHolder(holder: RecyclerViewAdapter.ViewHolder, position: Int) {
         holder.tv.text = data[position]
+        holder.swipeLayout?.showMode = SwipeLayout.ShowMode.PullOut
 
-        holder.viewBackground1.setOnClickListener {
-            Log.d("swipeClick", "clicked")
-        }
-        holder.viewBackground.setOnClickListener {
-            Log.d("swipeClick", "clicked")
-        }
+        // Drag From Left
+        holder.swipeLayout?.addDrag(SwipeLayout.DragEdge.Left, holder.swipeLayout.findViewById(R.id.bottom_wrapper1))
+
+        // Drag From Right
+        holder.swipeLayout?.addDrag(SwipeLayout.DragEdge.Right, holder.swipeLayout.findViewById(R.id.bottom_wrapper))
+
+        holder.swipeLayout?.addSwipeListener(object : SwipeLayout.SwipeListener {
+            override fun onOpen(layout: SwipeLayout?) {
+                Log.d("swipeLayout", "")
+            }
+
+            override fun onUpdate(layout: SwipeLayout?, leftOffset: Int, topOffset: Int) {
+                Log.d("swipeLayout", "")
+            }
+
+            override fun onStartOpen(layout: SwipeLayout?) {
+                Log.d("swipeLayout", "")
+            }
+
+            override fun onStartClose(layout: SwipeLayout?) {
+                Log.d("swipeLayout", "")
+            }
+
+            override fun onHandRelease(layout: SwipeLayout?, xvel: Float, yvel: Float) {
+                Log.d("swipeLayout", "")
+            }
+
+            override fun onClose(layout: SwipeLayout?) {
+                Log.d("swipeLayout", "")
+            }
+
+        })
+
     }
 
 }
