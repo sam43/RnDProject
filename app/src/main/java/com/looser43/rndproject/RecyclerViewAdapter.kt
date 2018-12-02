@@ -9,12 +9,19 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.swipe.SwipeLayout
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter
+import com.daimajia.swipe.implments.SwipeItemRecyclerMangerImpl
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.cart_list_item.view.*
+import kotlinx.android.synthetic.main.tes_layout.view.*
 
 class RecyclerViewAdapter(
     val data: List<String>,
     val context: Context?
 ) : RecyclerSwipeAdapter<RecyclerViewAdapter.ViewHolder>() {
+
+    private var check: Boolean = false
+    private var itemManager: SwipeItemRecyclerMangerImpl = SwipeItemRecyclerMangerImpl(this)
+
     override fun getSwipeLayoutResourceId(position: Int): Int {
         return R.id.swipe
     }
@@ -22,6 +29,7 @@ class RecyclerViewAdapter(
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         val tv: TextView = v.planet_name
         val swipeLayout: SwipeLayout? = v.swipe
+        val fab: FloatingActionButton? = v.fab
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewAdapter.ViewHolder {
@@ -39,38 +47,49 @@ class RecyclerViewAdapter(
         holder.tv.text = data[position]
         holder.swipeLayout?.showMode = SwipeLayout.ShowMode.PullOut
 
+
+        holder.swipeLayout?.addSwipeListener(object : SwipeLayout.SwipeListener {
+            override fun onOpen(layout: SwipeLayout?) {
+                Log.d("swipeLayout", "onOpen")
+                check = true
+            }
+
+            override fun onUpdate(layout: SwipeLayout?, leftOffset: Int, topOffset: Int) {
+                Log.d("swipeLayout", "onUpdate")
+            }
+
+            override fun onStartOpen(layout: SwipeLayout?) {
+                Log.d("swipeLayout", "onStartOpen")
+            }
+
+            override fun onStartClose(layout: SwipeLayout?) {
+                Log.d("swipeLayout", "onStartClose")
+            }
+
+            override fun onHandRelease(layout: SwipeLayout?, xvel: Float, yvel: Float) {
+                Log.d("swipeLayout", "onHandRelease")
+            }
+
+            override fun onClose(layout: SwipeLayout?) {
+                Log.d("swipeLayout", "onClose")
+                check = false
+            }
+
+        })
+
         // Drag From Left
         holder.swipeLayout?.addDrag(SwipeLayout.DragEdge.Left, holder.swipeLayout.findViewById(R.id.bottom_wrapper1))
 
         // Drag From Right
         holder.swipeLayout?.addDrag(SwipeLayout.DragEdge.Right, holder.swipeLayout.findViewById(R.id.bottom_wrapper))
 
-        holder.swipeLayout?.addSwipeListener(object : SwipeLayout.SwipeListener {
-            override fun onOpen(layout: SwipeLayout?) {
-                Log.d("swipeLayout", "")
-            }
 
-            override fun onUpdate(layout: SwipeLayout?, leftOffset: Int, topOffset: Int) {
-                Log.d("swipeLayout", "")
-            }
+        holder.fab?.setOnClickListener {
+            Log.d("swipeLayoutFab", "working... on click")
+            holder.swipeLayout?.close()
+        }
 
-            override fun onStartOpen(layout: SwipeLayout?) {
-                Log.d("swipeLayout", "")
-            }
-
-            override fun onStartClose(layout: SwipeLayout?) {
-                Log.d("swipeLayout", "")
-            }
-
-            override fun onHandRelease(layout: SwipeLayout?, xvel: Float, yvel: Float) {
-                Log.d("swipeLayout", "")
-            }
-
-            override fun onClose(layout: SwipeLayout?) {
-                Log.d("swipeLayout", "")
-            }
-
-        })
+        itemManager.bindView(holder.itemView, position)
 
     }
 
