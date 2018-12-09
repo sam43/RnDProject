@@ -1,4 +1,4 @@
-package com.looser43.rndproject
+package com.looser43.rndproject.fragments
 
 
 import android.os.Bundle
@@ -9,33 +9,20 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.swipe.util.Attributes
-import com.looser43.rndproject.callbacks.RecyclerItemTouchHelperListener
+import com.looser43.rndproject.R
+import com.looser43.rndproject.adapter.RecyclerViewAdapter
+import com.looser43.rndproject.models.Model
 import kotlinx.android.synthetic.main.fragment_page.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class PageFragment : Fragment(), RecyclerItemTouchHelperListener {
-    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int, position: Int) {
-
-    }
-
-    companion object {
-        val ARG_PAGE = "ARG_PAGE"
-
-        fun newInstance(page: Int): PageFragment {
-            val args = Bundle()
-            args.putInt(ARG_PAGE, page)
-            val fragment = PageFragment()
-            fragment.arguments = args
-            return fragment
-        }
-    }
+class PageFragment : Fragment() {
 
     private var mPage: Int = 0
     private lateinit var mRandom: Random
@@ -43,18 +30,26 @@ class PageFragment : Fragment(), RecyclerItemTouchHelperListener {
     private lateinit var mRunnable: Runnable
     private lateinit var adapter: RecyclerViewAdapter
     private lateinit var layoutManager: LinearLayoutManager
-    private lateinit var list: List<String>
+    private lateinit var list: ArrayList<Model>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //mPage = arguments!!.getInt(ARG_PAGE)
         // Initialize a new Random instance
 
-        list = Arrays.asList(*(resources.getStringArray(R.array.days_names)))
+        //list = Arrays.asList(*(resources.getStringArray(R.array.days_names)))
 
         mRandom = Random()
         // Initialize the handler instance
         mHandler = Handler()
+    }
+
+    private fun getListData(): List<Model> {
+        list = ArrayList()
+        for (i in 1..15) {
+            list.add(Model("TextView $i"))
+        }
+        return list
     }
 
     override fun onCreateView(
@@ -64,8 +59,8 @@ class PageFragment : Fragment(), RecyclerItemTouchHelperListener {
         return inflater.inflate(R.layout.fragment_page, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         forceRedraw()
         swipe_refresh_layout.setOnRefreshListener {
             // Initialize a new Runnable
@@ -93,7 +88,7 @@ class PageFragment : Fragment(), RecyclerItemTouchHelperListener {
     private fun forceRedraw() {
         layoutManager = LinearLayoutManager(activity?.applicationContext)
         recyclerView.layoutManager = layoutManager
-        adapter = RecyclerViewAdapter(list, activity?.applicationContext)
+        adapter = RecyclerViewAdapter(getListData() as ArrayList<Model>, activity!!)
         adapter.mode = Attributes.Mode.Multiple
         //recyclerView.itemAnimator = DefaultItemAnimator()
         //recyclerView.isNestedScrollingEnabled = true // default is true
