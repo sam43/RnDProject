@@ -14,6 +14,7 @@ import com.looser43.rndproject.adapter.DataAdapterHorizontal
 import com.looser43.rndproject.fragments.FragmentOne
 import com.looser43.rndproject.fragments.FragmentThree
 import com.looser43.rndproject.fragments.FragmentTwo
+import com.looser43.rndproject.fragments.PageFragment
 import com.looser43.rndproject.models.DataModelHorizontal
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.badgeview.*
@@ -103,7 +104,7 @@ class MainActivity : AppCompatActivity() {
                 goToFragment(fragment)
             }
             1 -> {
-                fragment = FragmentThree()
+                fragment = PageFragment()
                 goToFragment(fragment)
             }
             2 -> {

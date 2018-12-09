@@ -38,7 +38,7 @@ class RecyclerViewAdapter(
 
     init {
         data = dataL
-//        call = context as AdapterCallBacks
+        //call = context as AdapterCallBacks
     }
 
     override fun getSwipeLayoutResourceId(position: Int): Int {
@@ -66,15 +66,10 @@ class RecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model = data?.get(position)
         holder.tv.text = model?.text
-        //holder.swipeLayout?.showMode = SwipeLayout.ShowMode.PullOut
+        holder.swipeLayout?.showMode = SwipeLayout.ShowMode.PullOut
 
         holder.item.setBackgroundColor(if (model?.isSelected as Boolean) Color.CYAN else Color.WHITE)
 
-        holder.itemView.setOnClickListener {
-            call?.onLongClick(holder.item, position)
-            model.isSelected = !model.isSelected
-            holder.item.setBackgroundColor(if (model.isSelected) Color.CYAN else Color.WHITE)
-        }
 
         holder.swipeLayout?.addSwipeListener(object : SwipeLayout.SwipeListener {
             override fun onOpen(layout: SwipeLayout?) {
@@ -105,11 +100,43 @@ class RecyclerViewAdapter(
 
         })
 
-        // Drag From Left
-        holder.swipeLayout?.addDrag(SwipeLayout.DragEdge.Left, holder.swipeLayout.findViewById(R.id.bottom_wrapper1))
+        if (position == 3) {
+            holder.swipeLayout?.isSwipeEnabled = false
+        }
 
-        // Drag From Right
-        holder.swipeLayout?.addDrag(SwipeLayout.DragEdge.Right, holder.swipeLayout.findViewById(R.id.bottom_wrapper))
+        if (position == 1) {
+            // Drag From Left
+            holder.swipeLayout?.addDrag(
+                SwipeLayout.DragEdge.Left,
+                holder.swipeLayout.findViewById(R.id.bottom_wrapper1)
+            )
+
+            // Drag From Right
+            holder.swipeLayout?.addDrag(SwipeLayout.DragEdge.Right, null)
+        } else {
+
+            // Drag From Left
+            holder.swipeLayout?.addDrag(
+                SwipeLayout.DragEdge.Left,
+                holder.swipeLayout.findViewById(R.id.bottom_wrapper1)
+            )
+
+            // Drag From Right
+            holder.swipeLayout?.addDrag(
+                SwipeLayout.DragEdge.Right,
+                holder.swipeLayout.findViewById(R.id.bottom_wrapper)
+            )
+
+        }
+
+        holder.itemView.setOnLongClickListener {
+            if (!check) {
+                call?.onLongClick(holder.item, position)
+                model.isSelected = !model.isSelected
+                holder.item.setBackgroundColor(if (model.isSelected) Color.CYAN else Color.WHITE)
+            }
+            true
+        }
 
         /*// Drag From Up
         holder.swipeLayout?.addDrag(SwipeLayout.DragEdge.Bottom, holder.swipeLayout.findViewById(R.id.bottom_wrapper3))*/
