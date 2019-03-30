@@ -11,16 +11,23 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import com.looser43.rndproject.adapter.DataAdapterHorizontal
+import com.looser43.rndproject.callbacks.AdapterCallBacks
 import com.looser43.rndproject.fragments.FragmentOne
 import com.looser43.rndproject.fragments.FragmentThree
 import com.looser43.rndproject.fragments.FragmentTwo
 import com.looser43.rndproject.fragments.PageFragment
 import com.looser43.rndproject.models.DataModelHorizontal
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.badgeview.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AdapterCallBacks {
+    override fun onLongClick(v: View, position: Int) {
+        Log.d("tabSelectedRe", "$position")
+    }
+
+    override fun onSingleClick(position: Int) {
+        Log.d("tabSelectedRe", "$position")
+    }
 
     private lateinit var fragment: Fragment
     private lateinit var tabName: TextView
@@ -145,42 +152,6 @@ class MainActivity : AppCompatActivity() {
         )
         rv_hori.layoutManager = layoutManagerHoriztal
     }
-
-    private fun createCustomView(title: String, count: Int): TabLayout.Tab {
-        val tab = tab_layout.newTab().setCustomView(R.layout.badgeview)
-        tab_name.text = title
-        tab_count.text = count.toString()
-        return tab
-    }
-
-    /*private fun setUpViewPager() {
-        val adapter = ViewPagerAdapter(supportFragmentManager, tab_layout.tabCount)
-        viewPager.adapter = adapter
-        viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tab_layout))
-        tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-                Log.d("tabSelectedRe","${tab?.position} and ${viewPager?.currentItem}")
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-                Log.d("tabSelectedUn","${tab?.position} and ${viewPager?.currentItem}")
-            }
-
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                tab?.position?.let { viewPager.currentItem = it }
-                Log.d("tabSelected","${tab?.position} and ${viewPager?.currentItem}")
-            }
-
-        })
-
-        *//*val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(FragmentOne(), "ONE")
-        adapter.addFragment(FragmentTwo(), "TWO")
-        adapter.addFragment(FragmentThree(), "THREE")
-        adapter.addFragment(PageFragment(), "Four blaaa PageFragment")
-        viewPager.adapter = adapter
-        viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tab_layout))*//*
-    }*/
 
     private fun updateTab(selected: Boolean) {
         if (selected) {

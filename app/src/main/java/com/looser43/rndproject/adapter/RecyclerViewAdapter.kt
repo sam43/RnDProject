@@ -26,19 +26,19 @@ class RecyclerViewAdapter(
     val context: Context
 ) : RecyclerSwipeAdapter<RecyclerViewAdapter.ViewHolder>() {
 
-    companion object {
-        var call: AdapterCallBacks? = null
+    /*companion object {
     }
-
+*/
     private var globalPos: Int = -1
     private val selectedItems = SparseBooleanArray()
     private var data: ArrayList<Model>? = null
+    private var call: AdapterCallBacks? = null
     private var check: Boolean = false
     private var itemManager: SwipeItemRecyclerMangerImpl = SwipeItemRecyclerMangerImpl(this)
 
     init {
         data = dataL
-        //call = context as AdapterCallBacks
+        call = context as AdapterCallBacks
     }
 
     override fun getSwipeLayoutResourceId(position: Int): Int {
