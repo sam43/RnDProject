@@ -1,18 +1,18 @@
-package com.looser43.rndproject.adapter
+package com.looser43.rndproject.ui.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.looser43.rndproject.fragments.FragmentOne
-import com.looser43.rndproject.fragments.FragmentThree
-import com.looser43.rndproject.fragments.FragmentTwo
-import com.looser43.rndproject.fragments.PageFragment
+import com.looser43.rndproject.ui.fragments.FragmentOne
+import com.looser43.rndproject.ui.fragments.FragmentThree
+import com.looser43.rndproject.ui.fragments.FragmentTwo
+import com.looser43.rndproject.ui.fragments.PageFragment
 
 
 internal class ViewPagerAdapter(manager: FragmentManager, private val pageNum: Int) :
     FragmentStatePagerAdapter(manager) {
 
-    override fun getItem(position: Int): Fragment? {
+    override fun getItem(position: Int): Fragment {
 
         return when (position) {
             0 -> {
@@ -27,7 +27,7 @@ internal class ViewPagerAdapter(manager: FragmentManager, private val pageNum: I
             3 -> {
                 FragmentTwo()
             }
-            else -> null
+            else -> FragmentOne()
         }
     }
 

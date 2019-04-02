@@ -1,32 +1,32 @@
 <resources>
-	<string name="app_name">RnD Project</string>
+    <string name="app_name">RnD Project</string>
 
-	<!-- TODO: Remove or change this placeholder text -->
-	<string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-	<!-- Days -->
-	<string-array name="days_names">
-		<item>Mondaysdfghhhsfgthfhjdghj</item>
-		<item>Tuesdayfdgjfhjdfjjgfhj</item>
-		<item>Wednesdayhfjgjkfkfjkf</item>
-		<item>Thursdayfjgjkfkjkfgjfk</item>
-		<item>Fridayjkfjkfjkjkfjkfk</item>
-		<item>Saturdafkfjkjkjkjfhkjy</item>
-		<item>Sunday</item>
-		<item>Monday</item>
-		<item>Tuesday</item>
-		<item>Wednesday</item>
-		<item>Thursday</item>
-		<item>Friday</item>
-		<item>Saturday</item>
-		<item>Sunday</item>
-		<item>Monday</item>
-		<item>Tuesday</item>
-		<item>Wednesday</item>
-		<item>Thursday</item>
-		<item>Friday</item>
-		<item>Saturday</item>
-		<item>Sunday</item>
-	</string-array>
+    <!-- Days -->
+    <string-array name="days_names">
+        <item>Mondaysdfghhhsfgthfhjdghj</item>
+        <item>Tuesdayfdgjfhjdfjjgfhj</item>
+        <item>Wednesdayhfjgjkfkfjkf</item>
+        <item>Thursdayfjgjkfkjkfgjfk</item>
+        <item>Fridayjkfjkfjkjkfjkfk</item>
+        <item>Saturdafkfjkjkjkjfhkjy</item>
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
 
 </resources>

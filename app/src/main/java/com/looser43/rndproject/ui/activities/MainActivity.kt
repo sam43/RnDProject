@@ -1,4 +1,4 @@
-package com.looser43.rndproject
+package com.looser43.rndproject.ui.activities
 
 import android.graphics.Color
 import android.os.Bundle
@@ -10,13 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
-import com.looser43.rndproject.adapter.DataAdapterHorizontal
+import com.looser43.rndproject.R
 import com.looser43.rndproject.callbacks.AdapterCallBacks
-import com.looser43.rndproject.fragments.FragmentOne
-import com.looser43.rndproject.fragments.FragmentThree
-import com.looser43.rndproject.fragments.FragmentTwo
-import com.looser43.rndproject.fragments.PageFragment
 import com.looser43.rndproject.models.DataModelHorizontal
+import com.looser43.rndproject.ui.adapter.DataAdapterHorizontal
+import com.looser43.rndproject.ui.fragments.FragmentOne
+import com.looser43.rndproject.ui.fragments.FragmentThree
+import com.looser43.rndproject.ui.fragments.FragmentTwo
+import com.looser43.rndproject.ui.fragments.PageFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 

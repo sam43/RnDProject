@@ -1,10 +1,10 @@
-package com.looser43.rndproject
+package com.looser43.rndproject.utils
 
 import android.animation.ObjectAnimator
 import android.util.Log
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
-import com.looser43.rndproject.adapter.RecyclerViewAdapter
+import com.looser43.rndproject.ui.adapter.RecyclerViewAdapter
 
 
 class SimpleItemAnimator : DefaultItemAnimator() {

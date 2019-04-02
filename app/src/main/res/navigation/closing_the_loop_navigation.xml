@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/closing_the_loop_navigation"
+            app:startDestination="@id/fragmentOne">
+
+    <fragment android:id="@+id/fragmentOne" android:name="com.looser43.rndproject.ui.fragments.FragmentOne"
+              android:label="fragment_fragment_one" tools:layout="@layout/fragment_fragment_one">
+        <action android:id="@+id/action_fragmentOne_to_fragmentThree" app:destination="@id/fragmentThree"/>
+    </fragment>
+    <fragment android:id="@+id/fragmentThree" android:name="com.looser43.rndproject.ui.fragments.FragmentThree"
+              android:label="fragment_fragment_three" tools:layout="@layout/fragment_fragment_three"/>
+</navigation>

@@ -1,4 +1,4 @@
-package com.looser43.rndproject.adapter
+package com.looser43.rndproject.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
