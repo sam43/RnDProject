@@ -13,12 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.swipe.SwipeLayout
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter
 import com.daimajia.swipe.implments.SwipeItemRecyclerMangerImpl
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.looser43.rndproject.R
 import com.looser43.rndproject.callbacks.AdapterCallBacks
 import com.looser43.rndproject.models.Model
 import kotlinx.android.synthetic.main.cart_list_item.view.*
-import kotlinx.android.synthetic.main.tes_layout.view.*
 
 
 class RecyclerViewAdapter(
@@ -49,7 +47,7 @@ class RecyclerViewAdapter(
         val tv: TextView = v.planet_name
         val item: RelativeLayout = v.view_foreground
         val swipeLayout: SwipeLayout? = v.swipe
-        val fab: FloatingActionButton? = v.fab
+        //val fab: FloatingActionButton? = v.fab
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -142,10 +140,10 @@ class RecyclerViewAdapter(
         holder.swipeLayout?.addDrag(SwipeLayout.DragEdge.Bottom, holder.swipeLayout.findViewById(R.id.bottom_wrapper3))*/
 
 
-        holder.fab?.setOnClickListener {
+        /*holder.fab?.setOnClickListener {
             Log.d("swipeLayoutFab", "working... on click")
             holder.swipeLayout?.close()
-        }
+        }*/
 
         itemManager.bindView(holder.itemView, position)
 

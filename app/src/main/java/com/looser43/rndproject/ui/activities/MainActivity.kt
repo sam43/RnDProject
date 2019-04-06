@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.tabs.TabLayout
 import com.looser43.rndproject.R
 import com.looser43.rndproject.callbacks.AdapterCallBacks
 import com.looser43.rndproject.models.DataModelHorizontal
@@ -46,16 +45,18 @@ class MainActivity : AppCompatActivity(), AdapterCallBacks {
         super.onCreate(savedInstanceState)
         prepareData()
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
-        supportActionBar?.title = "Sample"
+        //setSupportActionBar(toolbar)
+        //supportActionBar?.title = "Sample"
 
-        tab_layout.addTab(tab_layout.newTab().setText("Tab Name onek boro"))
+        /*tab_layout.addTab(tab_layout.newTab().setText("Tab Name onek boro"))
         tab_layout.addTab(tab_layout.newTab().setText("Tab arekta o boro"))
         tab_layout.addTab(tab_layout.newTab().setText("Tab 3"))
         tab_layout.addTab(tab_layout.newTab().setText("Tab 4"))
         tab_layout.tabGravity = TabLayout.MODE_SCROLLABLE
-        tab_layout.getTabAt(1)?.select()
-        selectFragment(1)
+        tab_layout.setBadgeText(0,"10")
+        tab_layout.setBadgeText(2,"2")
+        tab_layout.getTabAt(0)?.select()*/
+        //selectFragment(0)
         /*smoothScroller = object : LinearSmoothScroller(this@MainActivity) {
             override fun getVerticalSnapPreference(): Int {
                 return LinearSmoothScroller.SNAP_TO_START
@@ -63,9 +64,10 @@ class MainActivity : AppCompatActivity(), AdapterCallBacks {
         }*/
         recyclerViewHori()
         first = true
-        setUpTabs()
+        //setUpTabs()
         //setUpViewPager()
         setUpFab()
+        selectFragment(0)
     }
 
     private fun setUpFab() {
@@ -84,25 +86,6 @@ class MainActivity : AppCompatActivity(), AdapterCallBacks {
             p++
             count++
         }
-    }
-
-    private fun setUpTabs() {
-        tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-                Log.d("tabSelectedRe", "${tab?.position} and ")
-                selectFragment(tab?.position)
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-                Log.d("tabSelectedUn", "${tab?.position} and ")
-            }
-
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                Log.d("tabSelected", "${tab?.position} and $")
-                selectFragment(tab?.position)
-            }
-
-        })
     }
 
     private fun selectFragment(position: Int?) {
@@ -141,7 +124,8 @@ class MainActivity : AppCompatActivity(), AdapterCallBacks {
     }
 
     private fun recyclerViewHori() {
-        adapter = DataAdapterHorizontal(horizontalDataModelList, this@MainActivity, false, false)
+        adapter =
+            DataAdapterHorizontal(items = horizontalDataModelList, context = this@MainActivity, b = false, nl = false)
 
         rv_hori.adapter = adapter
         rv_hori.setHasFixedSize(false)

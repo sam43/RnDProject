@@ -1,83 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                     xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                     xmlns:tools="http://schemas.android.com/tools"
-                                                     android:layout_width="match_parent"
-                                                     android:layout_height="match_parent"
-                                                     android:fitsSystemWindows="true"
-                                                     tools:context=".ui.activities.MainActivity">
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="0dp"
+        android:layout_marginStart="0dp"
+        android:fitsSystemWindows="true"
+        android:layout_marginEnd="0dp">
 
-	<com.google.android.material.appbar.AppBarLayout
-			android:id="@+id/appbarlayout"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbarlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-		<RelativeLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				app:layout_scrollFlags="scroll|enterAlways">
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:expandedTitleTextAppearance="@android:color/transparent"
+                app:layout_collapseMode="pin"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:subtitle=""
+                app:title="@string/app_name"/>
 
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentScrim="@color/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-			<androidx.appcompat.widget.Toolbar
-					android:id="@+id/toolbar"
-					android:layout_width="match_parent"
-					android:layout_height="?attr/actionBarSize"
-					android:background="@color/colorPrimary"
-					android:minHeight="?attr/actionBarSize"
-					android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-					app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_collapseMode="parallax"
+                    android:gravity="center"
+                    app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
 
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_hori"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="@android:color/white"
+                        android:orientation="horizontal"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="0dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="0dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginBottom="0dp"/>
 
-			<androidx.recyclerview.widget.RecyclerView
-					android:id="@+id/rv_hori"
-					android:layout_width="match_parent"
-					android:layout_height="100dp"
-					android:layout_below="@+id/toolbar"
-					android:background="@android:color/white"
-					android:orientation="horizontal" />
+            </RelativeLayout>
 
+            <com.rahimlis.badgedtablayout.BadgedTabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_marginTop="0dp"
+                    app:tabTextColor="#9EC7C7C7"
+                    app:tabSelectedTextColor="#FFF"
+                    app:badgeTextColor="#FFF"
+                    app:tabIndicatorHeight="3dp"
+                    android:visibility="gone"
+                    android:layout_gravity="bottom"
+                    app:tabRippleColor="@color/colorAccent"
+                    android:background="@color/colorPrimary"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="0dp"
+                    app:badgeBackgroundColor="@color/colorAccent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="0dp"/>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-		</RelativeLayout>
+    <FrameLayout
+            android:id="@+id/frag_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/appbarlayout"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-		<com.google.android.material.tabs.TabLayout
-				android:id="@+id/tab_layout"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:background="@color/colorPrimary"
-				app:badgeBackgroundColor="@color/colorAccent"
-				app:badgeTextColor="@android:color/white"
-				app:tabGravity="center"
-				app:tabIndicatorAnimationDuration="500"
-				app:tabIndicatorColor="#ffb743"
-				app:tabIndicatorHeight="4dp"
-				app:tabMode="scrollable"
-				app:tabRippleColor="@color/colorAccent"
-				app:tabSelectedTextColor="@android:color/white"
-				app:tabTextColor="#7cffffff" />
-
-	</com.google.android.material.appbar.AppBarLayout>
-
-	<FrameLayout
-			android:id="@+id/frag_container"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:layout_below="@+id/appbarlayout"
-			app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-	<!--	<androidx.viewpager.widget.ViewPager
-				android:id="@+id/viewPager"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
-
-	<com.google.android.material.floatingactionbutton.FloatingActionButton
-			android:id="@+id/fab_add"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="end|bottom"
-			android:layout_marginEnd="@dimen/padd_10"
-			android:layout_marginBottom="@dimen/padd_10"
-			android:src="@drawable/ic_whatshot"
-			app:fabSize="normal" />
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginEnd="@dimen/padd_10"
+            android:layout_marginBottom="@dimen/padd_10"
+            android:src="@drawable/ic_whatshot"
+            app:fabSize="normal"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
