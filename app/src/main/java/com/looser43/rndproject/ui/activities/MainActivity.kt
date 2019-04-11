@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity(), AdapterCallBacks {
         //setUpTabs()
         //setUpViewPager()
         setUpFab()
-        selectFragment(0)
+        selectFragment(1)
     }
 
     private fun setUpFab() {
@@ -91,11 +91,11 @@ class MainActivity : AppCompatActivity(), AdapterCallBacks {
     private fun selectFragment(position: Int?) {
         when (position) {
             0 -> {
-                fragment = FragmentOne()
+                fragment = PageFragment()
                 goToFragment(fragment)
             }
             1 -> {
-                fragment = PageFragment()
+                fragment = FragmentOne()
                 goToFragment(fragment)
             }
             2 -> {

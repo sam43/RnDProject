@@ -31,7 +31,7 @@ class FragmentOne : Fragment() {
         tabLayout.addTab(tabLayout.newTab().setText("Not Viewed"))
         tabLayout.addTab(tabLayout.newTab().setText("Viewed"))
         tabLayout.addTab(tabLayout.newTab().setText("Rejected"))
-        tabLayout.addTab(tabLayout.newTab().setText("Assessments"))
+        //tabLayout.addTab(tabLayout.newTab().setText("Assessments"))
         tabLayout.setBadgeText(0, "10")
         tabLayout.setBadgeText(2, "2")
         //tabLayout.setBadgeText(3,"1")
@@ -62,11 +62,11 @@ class FragmentOne : Fragment() {
                 goToFragment(fragment)
             }
             1 -> {
-                fragment = FragmentThree()
+                fragment = FragmentTwo()
                 goToFragment(fragment)
             }
             2 -> {
-                fragment = FragmentTwo()
+                fragment = FragmentThree()
                 goToFragment(fragment)
             }
             else -> goToFragment(fragment)

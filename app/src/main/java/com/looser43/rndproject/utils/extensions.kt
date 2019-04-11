@@ -11,11 +11,16 @@ import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputLayout
+import com.looser43.rndproject.R
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -76,6 +81,21 @@ fun Context.openUrlInBrowser(url: String?) {
         logException(e)
     }
 }*/
+
+fun Context.loadImage(url: String, holder: ImageView) {
+    Glide.with(this)
+        .load(url)
+        .apply(
+            RequestOptions.placeholderOf(R.drawable.banner_placeholder)
+                .error(R.drawable.ic_check_circle)
+                .dontAnimate()
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .skipMemoryCache(true)
+        )
+        .into(holder)
+
+}
+
 
 
 fun String.equalIgnoreCase(string: String): Boolean {
