@@ -1,14 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                       xmlns:tools="http://schemas.android.com/tools"
-                                                       android:id="@+id/swipe_refresh_layout"
-                                                       android:layout_width="match_parent"
-                                                       android:layout_height="match_parent"
-                                                       tools:context=".ui.fragments.PageFragment">
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:id="@+id/swipe_refresh_layout"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:context=".ui.fragments.PageFragment">
 
-	<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/recyclerView"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent" />
+	<FrameLayout android:layout_width="match_parent"
+				 android:layout_height="match_parent">
+
+		<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/recyclerView"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"/>
+		<LinearLayout android:layout_width="wrap_content"
+					  android:orientation="vertical"
+					  android:layout_gravity="end"
+					  android:layout_height="wrap_content">
+			<Button
+					android:id="@+id/btnSelectAll"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="select all"/>
+			<Button
+					android:id="@+id/btnClearAll"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Clear all"/>
+		</LinearLayout>
+
+	</FrameLayout>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

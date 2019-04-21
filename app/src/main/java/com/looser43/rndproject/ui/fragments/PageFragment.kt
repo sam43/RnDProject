@@ -59,6 +59,14 @@ class PageFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_page, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        btnSelectAll?.setOnClickListener { adapter.selectAll() }
+        btnClearAll?.setOnClickListener {
+            adapter.clearAll()
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         forceRedraw()

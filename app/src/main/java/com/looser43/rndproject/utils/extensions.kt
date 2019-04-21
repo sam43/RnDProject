@@ -1,6 +1,7 @@
 package com.looser43.rndproject.utils
 
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.Fragment
@@ -57,6 +58,7 @@ fun String.toBanglaDigit(): String {
     return builder.toString()
 }
 
+@SuppressLint("HardwareIds")
 fun Context.getDeviceID(): String {
     return try {
         Settings.Secure.getString(this.contentResolver, Settings.Secure.ANDROID_ID)

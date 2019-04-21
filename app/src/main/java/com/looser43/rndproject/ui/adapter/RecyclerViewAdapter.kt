@@ -17,6 +17,11 @@ import com.looser43.rndproject.R
 import com.looser43.rndproject.callbacks.AdapterCallBacks
 import com.looser43.rndproject.models.Model
 import kotlinx.android.synthetic.main.cart_list_item.view.*
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.cancelButton
+import org.jetbrains.anko.okButton
+import org.jetbrains.anko.toast
+import kotlin.random.Random
 
 
 class RecyclerViewAdapter(
@@ -29,7 +34,9 @@ class RecyclerViewAdapter(
 */
     private var globalPos: Int = -1
     private val selectedItems = SparseBooleanArray()
+    private lateinit var h: ViewHolder
     private var data: ArrayList<Model>? = null
+    private var items: ArrayList<Model>? = null
     private var call: AdapterCallBacks? = null
     private var check: Boolean = false
     private var itemManager: SwipeItemRecyclerMangerImpl = SwipeItemRecyclerMangerImpl(this)
@@ -53,7 +60,6 @@ class RecyclerViewAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.cart_list_item, parent, false)
-
         return ViewHolder(v)
     }
 
@@ -63,11 +69,11 @@ class RecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model = data?.get(position)
+        setHolder(holder)
         holder.tv.text = model?.text
         holder.swipeLayout?.showMode = SwipeLayout.ShowMode.PullOut
 
-        holder.item.setBackgroundColor(if (model?.isSelected as Boolean) Color.CYAN else Color.WHITE)
-
+        holder.item.setBackgroundColor(if (model?.isSelected as Boolean) Color.LTGRAY else Color.WHITE)
 
         holder.swipeLayout?.addSwipeListener(object : SwipeLayout.SwipeListener {
             override fun onOpen(layout: SwipeLayout?) {
@@ -88,7 +94,21 @@ class RecyclerViewAdapter(
             }
 
             override fun onHandRelease(layout: SwipeLayout?, xvel: Float, yvel: Float) {
-                Log.d("swipeLayout", "onHandRelease")
+                globalPos = Random.nextInt(0, 3)
+                Log.d("swipeLayout", "onHandRelease and val : $globalPos")
+                if (globalPos == 1) {
+                    context.alert("body", "title") {
+                        okButton {
+                            context.toast("Ok button pressed.")
+                        }
+                        cancelButton {
+                            it.dismiss()
+                        }
+                        /*also {
+                                            ctx.setTheme(R.style.CustomDialog)
+                                        }*/
+                    }.show()
+                }
             }
 
             override fun onClose(layout: SwipeLayout?) {
@@ -98,6 +118,20 @@ class RecyclerViewAdapter(
 
         })
 
+
+        // Drag From Left
+        holder.swipeLayout?.addDrag(
+            SwipeLayout.DragEdge.Left,
+            holder.swipeLayout.findViewById(R.id.bottom_wrapper1)
+        )
+
+        // Drag From Right
+        holder.swipeLayout?.addDrag(
+            SwipeLayout.DragEdge.Right,
+            holder.swipeLayout.findViewById(R.id.bottom_wrapper)
+        )
+
+/*
         if (position == 3) {
             holder.swipeLayout?.isSwipeEnabled = false
         }
@@ -106,7 +140,7 @@ class RecyclerViewAdapter(
             // Drag From Left
             holder.swipeLayout?.addDrag(
                 SwipeLayout.DragEdge.Left,
-                holder.swipeLayout.findViewById(R.id.bottom_wrapper1)
+                holder.swipeLayout?.findViewById(R.id.bottom_wrapper1)
             )
 
             // Drag From Right
@@ -116,22 +150,23 @@ class RecyclerViewAdapter(
             // Drag From Left
             holder.swipeLayout?.addDrag(
                 SwipeLayout.DragEdge.Left,
-                holder.swipeLayout.findViewById(R.id.bottom_wrapper1)
+                holder.swipeLayout?.findViewById(R.id.bottom_wrapper1)
             )
 
             // Drag From Right
             holder.swipeLayout?.addDrag(
                 SwipeLayout.DragEdge.Right,
-                holder.swipeLayout.findViewById(R.id.bottom_wrapper)
+                holder.swipeLayout?.findViewById(R.id.bottom_wrapper)
             )
 
-        }
+        }*/
 
         holder.itemView.setOnLongClickListener {
             if (!check) {
                 call?.onLongClick(holder.item, position)
                 model.isSelected = !model.isSelected
-                holder.item.setBackgroundColor(if (model.isSelected) Color.CYAN else Color.WHITE)
+                holder.item.setBackgroundColor(if (model.isSelected) Color.LTGRAY else Color.WHITE)
+
             }
             true
         }
@@ -149,12 +184,48 @@ class RecyclerViewAdapter(
 
     }
 
+    private fun setHolder(holder: ViewHolder) {
+        this.h = holder
+    }
+
+    private fun getHolder(): ViewHolder {
+        return this.h
+    }
+
     fun add(item: Model) {
         if (data != null) {
             data?.add(item)
             notifyItemInserted(data!!.size - 1)
         } else {
             Log.d("nullCheck", "getting null $item")
+        }
+    }
+
+    fun selectAll() {
+        /*items?.clear()
+        data?.let {
+            items?.addAll(it)
+        }*/
+        data?.forEach {
+            //call?.onLongClick(getHolder().item, position)
+            if (it.isSelected) {
+                it.isSelected = false
+            }
+            it.isSelected = !it.isSelected
+            getHolder().item.setBackgroundColor(Color.LTGRAY)
+            //getHolder().item.setBackgroundColor(if (it.isSelected) Color.LTGRAY else Color.WHITE)
+        }
+        Log.d("allSelected", "yes selected list size: ${data?.size}")
+        notifyDataSetChanged()
+    }
+
+    fun clearAll() {
+        if (!data.isNullOrEmpty()) {
+            data?.forEach {
+                it.isSelected = false
+                getHolder().item.setBackgroundColor(Color.WHITE)
+            }
+            notifyDataSetChanged()
         }
     }
 
