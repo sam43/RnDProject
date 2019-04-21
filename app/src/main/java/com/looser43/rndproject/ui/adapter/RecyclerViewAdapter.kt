@@ -35,8 +35,8 @@ class RecyclerViewAdapter(
     private var globalPos: Int = -1
     private val selectedItems = SparseBooleanArray()
     private lateinit var h: ViewHolder
-    private var data: ArrayList<Model>? = null
-    private var items: ArrayList<Model>? = null
+    private var data: ArrayList<Model>? = ArrayList()
+    private var items: ArrayList<Model>? = ArrayList()
     private var call: AdapterCallBacks? = null
     private var check: Boolean = false
     private var itemManager: SwipeItemRecyclerMangerImpl = SwipeItemRecyclerMangerImpl(this)
@@ -77,7 +77,11 @@ class RecyclerViewAdapter(
 
         holder.swipeLayout?.addSwipeListener(object : SwipeLayout.SwipeListener {
             override fun onOpen(layout: SwipeLayout?) {
-                Log.d("swipeLayout", "onOpen")
+                Log.d("swipeLayout", "onOpen and val : $globalPos")
+                globalPos = Random.nextInt(0, 10)
+                if (globalPos == 3) {
+                    showDialog()
+                }
                 check = true
             }
 
@@ -94,21 +98,7 @@ class RecyclerViewAdapter(
             }
 
             override fun onHandRelease(layout: SwipeLayout?, xvel: Float, yvel: Float) {
-                globalPos = Random.nextInt(0, 3)
-                Log.d("swipeLayout", "onHandRelease and val : $globalPos")
-                if (globalPos == 1) {
-                    context.alert("body", "title") {
-                        okButton {
-                            context.toast("Ok button pressed.")
-                        }
-                        cancelButton {
-                            it.dismiss()
-                        }
-                        /*also {
-                                            ctx.setTheme(R.style.CustomDialog)
-                                        }*/
-                    }.show()
-                }
+                Log.d("swipeLayout", "onHandRelease")
             }
 
             override fun onClose(layout: SwipeLayout?) {
@@ -163,10 +153,16 @@ class RecyclerViewAdapter(
 
         holder.itemView.setOnLongClickListener {
             if (!check) {
+                if (!model.isSelected) {
+                    items?.add(model)
+                } else {
+                    items?.remove(model)
+                }
                 call?.onLongClick(holder.item, position)
                 model.isSelected = !model.isSelected
                 holder.item.setBackgroundColor(if (model.isSelected) Color.LTGRAY else Color.WHITE)
 
+                Log.d("Items", "getting items: ${items?.size}")
             }
             true
         }
@@ -182,6 +178,20 @@ class RecyclerViewAdapter(
 
         itemManager.bindView(holder.itemView, position)
 
+    }
+
+    private fun showDialog() {
+        context.alert("body", "title") {
+            okButton {
+                context.toast("Ok button pressed.")
+            }
+            cancelButton {
+                it.dismiss()
+            }
+            /*also {
+                                ctx.setTheme(R.style.CustomDialog)
+                            }*/
+        }.show()
     }
 
     private fun setHolder(holder: ViewHolder) {
@@ -202,12 +212,13 @@ class RecyclerViewAdapter(
     }
 
     fun selectAll() {
-        /*items?.clear()
-        data?.let {
+        items?.clear()
+        /*data?.let {
             items?.addAll(it)
         }*/
         data?.forEach {
             //call?.onLongClick(getHolder().item, position)
+            items?.add(it)
             if (it.isSelected) {
                 it.isSelected = false
             }
@@ -215,16 +226,18 @@ class RecyclerViewAdapter(
             getHolder().item.setBackgroundColor(Color.LTGRAY)
             //getHolder().item.setBackgroundColor(if (it.isSelected) Color.LTGRAY else Color.WHITE)
         }
-        Log.d("allSelected", "yes selected list size: ${data?.size}")
+        Log.d("Items", "getting items: ${items?.size}")
         notifyDataSetChanged()
     }
 
     fun clearAll() {
         if (!data.isNullOrEmpty()) {
+            items?.clear()
             data?.forEach {
                 it.isSelected = false
                 getHolder().item.setBackgroundColor(Color.WHITE)
             }
+            Log.d("Items", "getting items: ${items?.size}")
             notifyDataSetChanged()
         }
     }
